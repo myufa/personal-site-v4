@@ -58,6 +58,7 @@ const Revolve = keyframes`
 
 interface CarouselInnerContainerProps {
     speed: number
+    opacity: number
 }
 const CarouselInnerContainer = styled.div<CarouselInnerContainerProps>`
     position:absolute;
@@ -65,7 +66,7 @@ const CarouselInnerContainer = styled.div<CarouselInnerContainerProps>`
     left:0px;
     overflow:hidden;
     white-space: nowrap;
-    animation: ${({ speed }) => css`${Revolve} ${speed}s linear infinite`};
+    animation: ${({ speed, opacity }) => opacity === 1 ? css`${Revolve} ${speed}s linear infinite` : null};
 `
 
 
@@ -102,8 +103,8 @@ const CarouselLeft = css`
 `
 
 const Carousel: FC<{
-    width: number, speed: number, alignment: FlattenSimpleInterpolation, text: string
-}> = ({width, speed, alignment, text}) => {
+    width: number, speed: number, alignment: FlattenSimpleInterpolation, text: string, opacity: number
+}> = ({width, speed, alignment, text, opacity}) => {
     const [ scaleFactor, setScaleFactor ] = useState(0)
 
     const childRef = useRef<HTMLElement>(null)
@@ -119,7 +120,7 @@ const Carousel: FC<{
 
     return (
         <CarouselOuterContainer width={width} alignment={alignment}>
-            <CarouselInnerContainer speed={speed}>
+            <CarouselInnerContainer speed={speed} opacity={opacity}>
                     {[...Array(scaleFactor + 1)].map(i => <span key={i} ref={childRef}>{text}&nbsp;</span>)}
             </CarouselInnerContainer>
         </CarouselOuterContainer>
@@ -136,10 +137,10 @@ export const CarouselBorder: FC = () => {
     }, [])
     return (
         <CarouselBorderContainer opacity={opacity}>
-            <Carousel width={170} speed={8} alignment={CarouselTop} text='Michael Yufa'/>
-            <Carousel width={238} speed={4} alignment={CarouselRight} text='Michael Yufa'/>
-            <Carousel width={170} speed={8} alignment={CarouselBottom} text='Michael Yufa'/>
-            <Carousel width={238} speed={4} alignment={CarouselLeft} text='Michael Yufa'/>
+            <Carousel width={170} speed={8} alignment={CarouselTop} text='Michael Yufa' opacity={opacity}/>
+            <Carousel width={238} speed={4} alignment={CarouselRight} text='Michael Yufa' opacity={opacity}/>
+            <Carousel width={170} speed={8} alignment={CarouselBottom} text='Michael Yufa' opacity={opacity}/>
+            <Carousel width={238} speed={4} alignment={CarouselLeft} text='Michael Yufa' opacity={opacity}/>
             <CenterContainer><CenterText>MY</CenterText></CenterContainer>
         </CarouselBorderContainer>
     )
