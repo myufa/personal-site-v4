@@ -4,8 +4,9 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: white;
+  font-family: "Surt", sans-serif;
+  color: #22272e;
 }
 
 div#__next, div#__next > div {

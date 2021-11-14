@@ -5,16 +5,17 @@ interface CarouselBorderContainerProps {
     opacity: number
 }
 const CarouselBorderContainer = styled.div<CarouselBorderContainerProps>`
-    font-family: "Surt", sans-serif;
+
     font-size: 25px;
     text-align: center;
     position: absolute;
     display: block;
     width: 250px;
     height: 250px;
-    border: 3px solid black;
+    border: 3px solid #22272e;
     opacity: ${({opacity}) => opacity};
-    transition: opacity 4s 0.5s;
+    transition: opacity 2.5s 0.5s;
+    top: 100px;
 `
 const CenterContainer = styled.div`
     position: relative;
@@ -22,7 +23,7 @@ const CenterContainer = styled.div`
     width: 162px;
     height: 162px;
     //margin: 44px;
-    border: 3px solid black;
+    border: 3px solid #22272e;
     justify-content: center;
     align-items: center;
     top: -116px;
