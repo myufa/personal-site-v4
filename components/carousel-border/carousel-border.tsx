@@ -1,30 +1,32 @@
-import React, { FC } from 'react'
-import styled, { css, keyframes } from 'styled-components'
+import React, { createRef, ElementRef, FC, LegacyRef, ReactNode, RefAttributes, useEffect, useRef, useState } from 'react'
+import styled, { css, DefaultTheme, FlattenSimpleInterpolation, keyframes, ThemedCssFunction } from 'styled-components'
 
-const CarouselBorderContainer = styled.div`
+interface CarouselBorderContainerProps {
+    opacity: number
+}
+const CarouselBorderContainer = styled.div<CarouselBorderContainerProps>`
+    font-family: "Surt", sans-serif;
+    font-size: 25px;
+    text-align: center;
     position: absolute;
     display: block;
     width: 250px;
     height: 250px;
     border: 3px solid black;
-`
-const CarouselContainer = styled.div`
-    width: 100%;
-    height: 42px;
-    position: absolute;
-    display: block;
-    top: 0;
-    left: 0;
+    opacity: ${({opacity}) => opacity};
+    transition: opacity 3s 0.5s;
 `
 const CenterContainer = styled.div`
-    position: absolute;
+    position: relative;
     display: flex;
     width: 162px;
     height: 162px;
-    margin: 44px;
+    //margin: 44px;
     border: 3px solid black;
     justify-content: center;
     align-items: center;
+    top: -116px;
+    left: 43px;
 `
 
 const CenterText = styled.div`
@@ -33,101 +35,112 @@ const CenterText = styled.div`
     text-align: center;
 `
 
-const CarouselSpanAnimationKeyframe = keyframes`
+interface CarouselProps {
+    width: number
+    alignment: FlattenSimpleInterpolation
+}
+const CarouselOuterContainer = styled.div<CarouselProps>`
+    width: ${({ width }) => width}px;
+    height: 40px;
+    position:   relative;
+    overflow:   hidden;
+    ${({ alignment }) => alignment}
+`
+
+const Revolve = keyframes`
     0% {
-        transform: translate(-100%, 0);
+        transform: translate(-50%, 0);
     }
     100% {
         transform: translate(0, 0);
     }
 `
 
-interface CarouselPProps {
-    width: number
+interface CarouselInnerContainerProps {
+    speed: number
 }
-const CarouselP = styled.p<CarouselPProps>`
-    width: ${({ width }) => width}px;
-    font-family: "Surt", sans-serif;
-    font-size: 25px;
-    margin: 0 auto;
+const CarouselInnerContainer = styled.div<CarouselInnerContainerProps>`
+    position:absolute;
+    top:0px;
+    left:0px;
+    overflow:hidden;
     white-space: nowrap;
-    overflow: hidden;
-    position: absolute;
+    animation: ${({ speed }) => css`${Revolve} ${speed}s linear infinite`};
 `
 
-const CarouselPTop = styled(CarouselP)`
-    left: 45px;
+
+const CarouselTop = css`
+    left: 40px;
     top: 7px;
 `
-const CarouselPRight = styled(CarouselP)`
+const CarouselRight = css`
     transform: rotate(90deg);
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
-    left: 105px;
-    top: 109px;
+    right: -100px;
+    top: 63px;
 `
-const CarouselPBottom = styled(CarouselP)`
+const CarouselBottom = css`
     transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -o-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
-    left: 45px;
-    top: 210px;
+    left: 40px;
+    top: 120px;
 `
-const CarouselPLeft = styled(CarouselP)`
+const CarouselLeft = css`
     transform: rotate(270deg);
     -webkit-transform: rotate(270deg);
     -moz-transform: rotate(270deg);
     -o-transform: rotate(270deg);
     -ms-transform: rotate(270deg);
-    left: -101px;
-    top: 110px;
+    left: -92px;
+    top: -18px;
 `
 
-interface CarouselSpanProps {
-    speed: number
+const Carousel: FC<{
+    width: number, speed: number, alignment: FlattenSimpleInterpolation, text: string
+}> = ({width, speed, alignment, text}) => {
+    const [ scaleFactor, setScaleFactor ] = useState(0)
+
+    const childRef = useRef<HTMLElement>(null)
+
+    useEffect(() => {
+        if(childRef.current) {
+            const newScaleFactor  = childRef.current.offsetWidth ? width / childRef.current.offsetWidth : 0
+            if (newScaleFactor > 0.15)
+            setScaleFactor(Math.ceil(newScaleFactor) + 3)
+            console.log('hi', newScaleFactor, Math.ceil(newScaleFactor), width , childRef.current.offsetWidth)
+        }
+    }, [])
+
+    return (
+        <CarouselOuterContainer width={width} alignment={alignment}>
+            <CarouselInnerContainer speed={speed}>
+                    {[...Array(scaleFactor + 1)].map(i => <span key={i} ref={childRef}>{text}&nbsp;</span>)}
+            </CarouselInnerContainer>
+        </CarouselOuterContainer>
+    )
 }
-const CarouselSpan1 = styled.span<CarouselSpanProps>`
-    display: inline-block;
-    padding-left: 100%;
-    animation: ${({ speed }) => css`${CarouselSpanAnimationKeyframe} ${speed}s linear infinite`};
-`
-
-const CarouselSpan2 = styled.span<CarouselSpanProps>`
-    display: inline-block;
-    padding-left: 100%;
-    animation: ${({ speed }) => css`${CarouselSpanAnimationKeyframe} ${speed}s linear infinite`};
-    animation-delay: ${({ speed }) => speed / 2}s;
-`
-
-
-const Carousel = (speed: number, width: number) => (CarouselComponent: FC<CarouselPProps>) => (
-    <>
-        <CarouselComponent width={width}>
-            <CarouselSpan1 speed={speed}>Michael Yufa&nbsp;</CarouselSpan1>
-        </CarouselComponent>
-        <CarouselComponent width={width}>
-            <CarouselSpan2 speed={speed}>Michael Yufa&nbsp;</CarouselSpan2>
-        </CarouselComponent>
-    </>
-)
-
-const HorizontalCarousel = Carousel(7, 160)
-const VerticalCarousel = Carousel(4, 244)
 
 export const CarouselBorder: FC = () => {
+    const [opacity, setOpacity] = useState(0)
+    useEffect(() => {
+        setOpacity(1)
+        return () => {
+            setOpacity(0)
+        }
+    }, [])
     return (
-        <CarouselBorderContainer>
-            <CarouselContainer>
-                {HorizontalCarousel(CarouselPTop)}
-                {VerticalCarousel(CarouselPRight)}
-                <CenterContainer><CenterText>MY</CenterText></CenterContainer>
-                {HorizontalCarousel(CarouselPBottom)}
-                {VerticalCarousel(CarouselPLeft)}
-            </CarouselContainer>
+        <CarouselBorderContainer opacity={opacity}>
+            <Carousel width={170} speed={8} alignment={CarouselTop} text='Michael Yufa'/>
+            <Carousel width={238} speed={4} alignment={CarouselRight} text='Michael Yufa'/>
+            <Carousel width={170} speed={8} alignment={CarouselBottom} text='Michael Yufa'/>
+            <Carousel width={238} speed={4} alignment={CarouselLeft} text='Michael Yufa'/>
+            <CenterContainer><CenterText>MY</CenterText></CenterContainer>
         </CarouselBorderContainer>
     )
 }
