@@ -5,7 +5,6 @@ interface CarouselBorderContainerProps {
     opacity: number
 }
 const CarouselBorderContainer = styled.div<CarouselBorderContainerProps>`
-
     font-size: 25px;
     text-align: center;
     position: absolute;
@@ -16,6 +15,7 @@ const CarouselBorderContainer = styled.div<CarouselBorderContainerProps>`
     opacity: ${({opacity}) => opacity};
     transition: opacity 2.5s 0.5s;
     top: 100px;
+    font-weight: bold;
 `
 const CenterContainer = styled.div`
     position: relative;
@@ -31,9 +31,9 @@ const CenterContainer = styled.div`
 `
 
 const CenterText = styled.div`
-    font-family: "Surt", sans-serif;
     font-size: 104px;
     text-align: center;
+    padding-right: 7px;
 `
 
 interface CarouselProps {
@@ -113,8 +113,8 @@ const Carousel: FC<{
     useEffect(() => {
         if(childRef.current) {
             const newScaleFactor  = childRef.current.offsetWidth ? width / childRef.current.offsetWidth : 0
-            if (newScaleFactor > 0.15)
-            setScaleFactor(Math.ceil(newScaleFactor) + 3)
+            if (newScaleFactor > 1)
+            setScaleFactor(Math.ceil(newScaleFactor) + 1)
             console.log('hi', newScaleFactor, Math.ceil(newScaleFactor), width , childRef.current.offsetWidth)
         }
     }, [])

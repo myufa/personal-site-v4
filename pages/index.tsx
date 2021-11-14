@@ -1,16 +1,32 @@
+import React from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import React from 'react'
-import { CarouselBorder } from '../components/carousel-border'
 import styled from 'styled-components'
+import { CarouselBorder } from '../components/carousel-border'
+import { LinkBar } from '../components/link-bar'
+
+const SyllableUrl = 'https://syllable.ai/'
 
 const AppContainer = styled.div`
   display: flex;
-  width: 100%;
-  height: 100%;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   justify-content: center;
   //align-items: center;
+  font-family: aileron, sans-serif;
+`
+
+const TagLine = styled.div`
+  text-align: center;
+  position: absolute;
+  width: 500px;
+  top: 400px;
+`
+
+const SyllableLink = styled.a`
+  color: #0025FF;
+  text-decoration: none;
 `
 
 const Home: NextPage = () => {
@@ -23,6 +39,11 @@ const Home: NextPage = () => {
     return (
         <AppContainer>
             <CarouselBorder />
+            <TagLine>
+              <h1>Hi. I'm Michael</h1>
+              <h3>I'm a full-stack engineer at <SyllableLink href={SyllableUrl} target='_blank'>syllable.ai</SyllableLink></h3>
+            </TagLine>
+            <LinkBar />
         </AppContainer>
     )
 }

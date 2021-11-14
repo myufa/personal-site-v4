@@ -5,12 +5,13 @@ body {
   height: 100%;
   width: 100%;
   background-color: white;
-  font-family: "Surt", sans-serif;
+
   color: #22272e;
 }
 
 div#__next, div#__next > div {
   height: 100%;
+  position: fixed;
 }
 
 a {
