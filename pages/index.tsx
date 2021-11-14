@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import styled from 'styled-components'
@@ -17,11 +17,16 @@ const AppContainer = styled.div`
   font-family: aileron, sans-serif;
 `
 
-const TagLine = styled.div`
+interface TagLineProps {
+  opacity: number
+}
+const TagLineContainer = styled.div<TagLineProps>`
   text-align: center;
   position: absolute;
   width: 500px;
   top: 400px;
+  opacity: ${({opacity}) => opacity};
+  transition: opacity 2.5s 0.5s;
 `
 
 const SyllableLink = styled.a`
@@ -29,20 +34,32 @@ const SyllableLink = styled.a`
   text-decoration: none;
 `
 
+const TagLine: FC = () => {
+  const [opacity, setOpacity] = useState(0)
+  useEffect(() => {
+      setOpacity(1)
+      return () => {
+          setOpacity(0)
+      }
+  }, [])
+  return (
+    <TagLineContainer opacity={opacity}>
+      <h1>Hi. I'm Michael</h1>
+      <h3>I'm a full-stack engineer at <SyllableLink href={SyllableUrl} target='_blank'>syllable.ai</SyllableLink></h3>
+    </TagLineContainer>
+  )
+}
+
 const Home: NextPage = () => {
     <Head>
         <title>Michael Yufa</title>
         <meta name="description" content="Michael Yufa" />
-        <link rel="icon" href="/static/favicon.png" />
     </Head>
 
     return (
         <AppContainer>
             <CarouselBorder />
-            <TagLine>
-              <h1>Hi. I'm Michael</h1>
-              <h3>I'm a full-stack engineer at <SyllableLink href={SyllableUrl} target='_blank'>syllable.ai</SyllableLink></h3>
-            </TagLine>
+            <TagLine/>
             <LinkBar />
         </AppContainer>
     )
