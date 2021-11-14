@@ -13,6 +13,7 @@ import NextDocument, {
             <link
                 href="https://use.typekit.net/mvf1fxm.css"
                 rel="stylesheet" />
+            <link rel="icon" href="/static/favicon.png" />
           </Head>
           <body>
             <Main />

@@ -33,7 +33,7 @@ const Home: NextPage = () => {
     <Head>
         <title>Michael Yufa</title>
         <meta name="description" content="Michael Yufa" />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/static/favicon.png" />
     </Head>
 
     return (
