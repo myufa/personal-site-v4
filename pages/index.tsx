@@ -54,17 +54,20 @@ const TagLine: FC = () => {
 }
 
 const Home: NextPage = () => {
-    <Head>
-        <title>Michael Yufa</title>
-        <meta name="description" content="Michael Yufa" />
-    </Head>
+
 
     return (
+      <>
+        <Head>
+          <title>Michael Yufa</title>
+          <meta name="description" content="Michael Yufa" />
+        </Head>
         <AppContainer>
             <CarouselBorder />
             <TagLine/>
             <LinkBar />
         </AppContainer>
+      </>
     )
 }
 
