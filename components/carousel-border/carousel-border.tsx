@@ -14,7 +14,7 @@ const CarouselBorderContainer = styled.div<CarouselBorderContainerProps>`
     height: 250px;
     border: 3px solid black;
     opacity: ${({opacity}) => opacity};
-    transition: opacity 3s 0.5s;
+    transition: opacity 4s 0.5s;
 `
 const CenterContainer = styled.div`
     position: relative;
