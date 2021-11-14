@@ -48,7 +48,7 @@ const TagLine: FC = () => {
   return (
     <TagLineContainer opacity={opacity}>
       <h1>Hi. I'm Michael</h1>
-      <h3>I'm a full-stack engineer at <SyllableLink href={SyllableUrl} target='_blank'>syllable.ai</SyllableLink></h3>
+      <h3>I'm a Full-Stack Engineer at <SyllableLink href={SyllableUrl} target='_blank'>Syllable</SyllableLink></h3>
     </TagLineContainer>
   )
 }

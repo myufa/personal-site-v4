@@ -28,6 +28,18 @@ const ContactLink = styled.a`
     text-decoration: none;
 `
 
+const ExternalLinkIconContainer = styled.img`
+    width: 20px;
+    height: 20px;
+    display: inline;
+`
+
+const ExternalLinkIcon = (
+    <ExternalLinkIconContainer
+        src='static/arrow-up-right.svg'
+        alt='external link' />
+)
+
 export const LinkBar: FC = () => {
     const [opacity, setOpacity] = useState(0)
     useEffect(() => {
@@ -38,9 +50,9 @@ export const LinkBar: FC = () => {
     }, [])
     return (
         <LinkBarContainer opacity={opacity}>
-            <ContactLink href={GitHubUrl} target='_blank'>GitHub{'\u2197'}</ContactLink>
-            <ContactLink href={TwitterUrl} target='_blank'>Twitter{'\u2197'}</ContactLink>
-            <ContactLink href={LinkedInUrl} target='_blank'>LinkedIn{'\u2197'}</ContactLink>
+            <ContactLink href={GitHubUrl} target='_blank'>GitHub{ExternalLinkIcon}</ContactLink>
+            <ContactLink href={TwitterUrl} target='_blank'>Twitter{ExternalLinkIcon}</ContactLink>
+            <ContactLink href={LinkedInUrl} target='_blank'>LinkedIn{ExternalLinkIcon}</ContactLink>
         </LinkBarContainer>
     )
 }
