@@ -16,6 +16,9 @@ const CarouselBorderContainer = styled.div<CarouselBorderContainerProps>`
     transition: opacity 2.5s 0.5s;
     top: 100px;
     font-weight: bold;
+    @media (max-width: 480px) {
+        top: 50px;
+    }
 `
 const CenterContainer = styled.div`
     position: relative;

@@ -18,6 +18,9 @@ const LinkBarContainer = styled.div<LinkBarContainerProps>`
     transition: opacity 2.5s 0.5s;
     display: flex;
     justify-content: space-between;
+    @media (max-width: 480px) {
+        top: 480px;
+    }
 `
 
 const ContactLink = styled.a`

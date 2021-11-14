@@ -27,6 +27,9 @@ const TagLineContainer = styled.div<TagLineProps>`
   top: 400px;
   opacity: ${({opacity}) => opacity};
   transition: opacity 2.5s 0.5s;
+  @media (max-width: 480px) {
+    top: 330px;
+  }
 `
 
 const SyllableLink = styled.a`
