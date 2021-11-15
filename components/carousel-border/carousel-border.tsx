@@ -1,5 +1,7 @@
-import React, { createRef, ElementRef, FC, LegacyRef, ReactNode, RefAttributes, useEffect, useRef, useState } from 'react'
-import styled, { css, DefaultTheme, FlattenSimpleInterpolation, keyframes, ThemedCssFunction } from 'styled-components'
+import React, { FC, useEffect, useRef, useState } from 'react'
+import styled, { css } from 'styled-components'
+import { Carousel } from './carousel'
+import { Rotate } from './carousel/utils'
 
 interface CarouselBorderContainerProps {
     opacity: number
@@ -39,97 +41,25 @@ const CenterText = styled.div`
     padding-right: 7px;
 `
 
-interface CarouselProps {
-    width: number
-    alignment: FlattenSimpleInterpolation
-}
-const CarouselOuterContainer = styled.div<CarouselProps>`
-    width: ${({ width }) => width}px;
-    height: 40px;
-    position:   relative;
-    overflow:   hidden;
-    ${({ alignment }) => alignment}
-`
-
-const Revolve = keyframes`
-    0% {
-        transform: translate(-50%, 0);
-    }
-    100% {
-        transform: translate(0, 0);
-    }
-`
-
-interface CarouselInnerContainerProps {
-    speed: number
-    opacity: number
-}
-const CarouselInnerContainer = styled.div<CarouselInnerContainerProps>`
-    position:absolute;
-    top:0px;
-    left:0px;
-    overflow:hidden;
-    white-space: nowrap;
-    animation: ${({ speed, opacity }) => opacity === 1 ? css`${Revolve} ${speed}s linear infinite` : null};
-`
-
-
 const CarouselTop = css`
     left: 40px;
     top: 7px;
 `
 const CarouselRight = css`
-    transform: rotate(90deg);
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
+    ${Rotate(90)}
     right: -100px;
     top: 63px;
 `
 const CarouselBottom = css`
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
+    ${Rotate(180)}
     left: 40px;
     top: 120px;
 `
 const CarouselLeft = css`
-    transform: rotate(270deg);
-    -webkit-transform: rotate(270deg);
-    -moz-transform: rotate(270deg);
-    -o-transform: rotate(270deg);
-    -ms-transform: rotate(270deg);
+    ${Rotate(270)}
     left: -92px;
     top: -18px;
 `
-
-const Carousel: FC<{
-    width: number, speed: number, alignment: FlattenSimpleInterpolation, text: string, opacity: number
-}> = ({width, speed, alignment, text, opacity}) => {
-    const [ scaleFactor, setScaleFactor ] = useState(0)
-
-    const childRef = useRef<HTMLElement>(null)
-
-    useEffect(() => {
-        if(childRef.current) {
-            const newScaleFactor  = childRef.current.offsetWidth ? width / childRef.current.offsetWidth : 0
-            if (newScaleFactor > 1)
-            setScaleFactor(Math.ceil(newScaleFactor) + 1)
-            console.log('hi', newScaleFactor, Math.ceil(newScaleFactor), width , childRef.current.offsetWidth)
-        }
-    }, [])
-
-    return (
-        <CarouselOuterContainer width={width} alignment={alignment}>
-            <CarouselInnerContainer speed={speed} opacity={opacity}>
-                    {[...Array(scaleFactor + 1)].map(i => <span key={i} ref={childRef}>{text}&nbsp;</span>)}
-            </CarouselInnerContainer>
-        </CarouselOuterContainer>
-    )
-}
 
 export const CarouselBorder: FC = () => {
     const [opacity, setOpacity] = useState(0)

@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { CarouselBorder } from '../components/carousel-border'
 import { LinkBar } from '../components/link-bar'
+import { Rotate } from '../components/carousel-border/carousel/utils'
+import { Carousel } from '../components/carousel-border/carousel'
 
 const SyllableUrl = 'https://syllable.ai/'
 
@@ -47,15 +49,26 @@ const TagLine: FC = () => {
   }, [])
   return (
     <TagLineContainer opacity={opacity}>
-      <h1>Hi. I'm Michael.</h1>
+      <h1>Hi, I'm Michael.</h1>
       <h3>I'm a Full-Stack Engineer at <SyllableLink href={SyllableUrl} target='_blank'>Syllable.</SyllableLink></h3>
     </TagLineContainer>
   )
 }
 
+const SideCarouselLeft = css`
+  font-weight: 300;
+  ${Rotate(270)}
+  position: fixed;
+  left: 2px;
+`
+const SideCarouselRight = css`
+  font-weight: lighter;
+  ${Rotate(90)}
+  position: fixed;
+  right: 2px;
+`
+
 const Home: NextPage = () => {
-
-
     return (
       <>
         <Head>
@@ -63,7 +76,19 @@ const Home: NextPage = () => {
           <meta name="description" content="Michael Yufa" />
         </Head>
         <AppContainer>
+            {/* <Carousel
+              width={1000}
+              speed={12}
+              alignment={SideCarouselLeft}
+              text='|Full|&nbsp;&nbsp;&nbsp;|Stack|&nbsp;&nbsp;&nbsp;'
+              opacity={1} /> */}
             <CarouselBorder />
+            {/* <Carousel
+              width={1000}
+              speed={12}
+              alignment={SideCarouselRight}
+              text='|Full|&nbsp;&nbsp;&nbsp;|Stack|&nbsp;&nbsp;&nbsp;'
+              opacity={1} /> */}
             <TagLine/>
             <LinkBar />
         </AppContainer>
