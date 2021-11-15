@@ -47,18 +47,21 @@ const CarouselTop = css`
 `
 const CarouselRight = css`
     ${Rotate(90)}
-    right: -100px;
-    top: 63px;
+    transform-origin: 59% 253%;
+    right: 4px;
+    top: 2px;
 `
 const CarouselBottom = css`
     ${Rotate(180)}
+    transform-origin: 50% 200%;
     left: 40px;
-    top: 120px;
+    bottom: 0px;
 `
 const CarouselLeft = css`
     ${Rotate(270)}
-    left: -92px;
-    top: -18px;
+    transform-origin: 25% 150%;
+    left: 4px;
+    top: 2px;
 `
 
 export const CarouselBorder: FC = () => {
